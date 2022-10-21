@@ -47,9 +47,6 @@ const renderCard = function (author, offer) {
   return newCard;
 };
 
-console.log(renderCard);
-
-
 export { renderCard, cardsArr, checkCard };
 
 

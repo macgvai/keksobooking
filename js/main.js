@@ -13,3 +13,6 @@ checkCard.appendChild(renderCard(cardsArr[0].author, cardsArr[0].offer));
 
 
 
+
+
+

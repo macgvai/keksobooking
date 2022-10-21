@@ -51,3 +51,6 @@ const renderCard = function (author, offer) {
 export { renderCard, cardsArr, checkCard };
 
 
+
+
+

@@ -31,4 +31,8 @@ const onTimeOut = function ( ) {
 timeIn.addEventListener('change', onTimeIn);
 timeOut.addEventListener('change', onTimeOut);
 
+
+
+
 export { onPriceOfType, onTimeIn,  onTimeOut };
+

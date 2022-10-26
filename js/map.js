@@ -9,7 +9,7 @@ const ZOOM_MAP = 12;
 const map = L.map('map-canvas');
 
 const mainMarkerIcon = L.icon({
-  iconUrl: '/leaflet/img/main-pin.svg',
+  iconUrl: './leaflet/img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });

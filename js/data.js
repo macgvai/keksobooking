@@ -8,7 +8,7 @@ const TYPE_HOUSE = {
   'palace': 'Дворец',
   'hotel': 'Отель',
 };
-const arrFeatures = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const arrFeatures = ['wifi ', 'dishwasher ', 'parking ', 'washer ', 'elevator ', 'conditioner '];
 const checkin = ['12:00', '13:00', '14:00'];
 const checkout = ['12:00', '13:00', '14:00'];
 const photosArr = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
@@ -32,14 +32,15 @@ const getLocation = (decimalPlaces) => {
   return currentLocation;
 };
 
-const currLocation = getLocation(5);
-const currentAdress =  Object.entries(currLocation).map(([key, value]) => key + ' ' + value).join(', ');
 
 
 // получаем информацию об объявлении
 const getOffer = () => {
   let offers = [];
   for (let i = 0; i < OFFER_COUNT; i++) {
+    const currLocation = getLocation(5);
+    const currentAdress =  Object.entries(currLocation).map(([key, value]) => key + ' ' + value).join(', ');
+
     offers.push({
       author: getAvatar(1, 8),
       offer: {
@@ -55,7 +56,8 @@ const getOffer = () => {
         description: 'отличная квартира!',
         photos: photosArr,
       },
-      location: currLocation});
+      location: currLocation,
+    });
   }
   return offers;
 };

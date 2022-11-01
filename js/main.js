@@ -1,6 +1,7 @@
 import { renderCard, cardsArr, checkCard } from './card.js';
-import { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm } from './form.js';
+import { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, formValidation } from './form.js';
 import  { getMap, currentPosMarker }  from './map.js';
+const selectRooms = document.querySelector('#room_number');
 
 
 toInactiveForm();
@@ -16,4 +17,6 @@ currentPosMarker();
 //   console.log(element);});
 
 console.log(cardsArr);
+
+formValidation(selectRooms);
 

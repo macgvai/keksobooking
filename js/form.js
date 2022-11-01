@@ -3,6 +3,10 @@ const typeForm = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
 const timeOut = document.querySelector('#timeout');
 const addressForm = document.querySelector('#address');
+const selectRooms = document.querySelector('#room_number');
+const capacity = document.querySelector('#capacity');
+
+
 
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersChildren = mapFilters.children;
@@ -73,5 +77,50 @@ const getCurrentPosition = function (coordinates) {
 };
 
 
-export { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, toActiveForm, getCurrentPosition };
+
+// валидация формы
+
+// кол-во комнат кол-во гостей
+
+const formValidation = function () {
+  if (selectRooms.value < capacity.value) {
+    capacity.setCustomValidity(`В ${selectRooms.value} комнате возможно разместить только ${selectRooms.value} гостя`);
+  } else {
+    capacity.setCustomValidity('');
+  }
+  capacity.reportValidity();
+
+
+  capacity.addEventListener('change', (evt) => {
+    if (evt.currentTarget.value > selectRooms.value) {
+      capacity.style.borderColor = 'red';
+      capacity.setCustomValidity(`В ${selectRooms.value} комнате возможно разместить до  ${selectRooms.value} гостей`);
+    } else if (capacity.value == '0') {
+      capacity.style.borderColor = 'red';
+      capacity.setCustomValidity(`Не для гостей`);
+    } else {
+      capacity.setCustomValidity('');
+    }
+    capacity.reportValidity();
+  });
+
+  selectRooms.addEventListener('change', (evt) => {
+    if ((evt.currentTarget.value < capacity.value) && (selectRooms.value !== '100')) {
+      capacity.style.borderColor = 'red';
+      capacity.setCustomValidity(`В ${evt.currentTarget.value} комнате возможно разместить до ${evt.currentTarget.value} гостей`);
+    } else if (selectRooms.value === '100') {
+      capacity.style.borderColor = 'red';
+      capacity.setCustomValidity(`Не для гостей`);
+    } else {
+      capacity.setCustomValidity('');
+    }
+    capacity.reportValidity();
+  });
+
+};
+
+
+
+
+export { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, toActiveForm, getCurrentPosition, formValidation };
 

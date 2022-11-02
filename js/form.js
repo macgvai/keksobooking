@@ -97,7 +97,7 @@ const formValidation = function () {
       capacity.setCustomValidity(`В ${selectRooms.value} комнате возможно разместить до  ${selectRooms.value} гостей`);
     } else if (capacity.value == '0') {
       capacity.style.borderColor = 'red';
-      capacity.setCustomValidity(`Не для гостей`);
+      capacity.setCustomValidity('Не для гостей');
     } else {
       capacity.setCustomValidity('');
     }
@@ -110,7 +110,7 @@ const formValidation = function () {
       capacity.setCustomValidity(`В ${evt.currentTarget.value} комнате возможно разместить до ${evt.currentTarget.value} гостей`);
     } else if (selectRooms.value === '100') {
       capacity.style.borderColor = 'red';
-      capacity.setCustomValidity(`Не для гостей`);
+      capacity.setCustomValidity('Не для гостей');
     } else {
       capacity.setCustomValidity('');
     }

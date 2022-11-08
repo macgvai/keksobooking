@@ -2,8 +2,8 @@ import { toActiveForm, getCurrentPosition } from './form.js';
 import { renderCard, cardsArr } from './card.js';
 
 const TOKYO = {
-  lat: 35.68602,
-  lng: 139.75090,
+  lat: 35.67487,
+  lng:   139.75039,
 };
 const ZOOM_MAP = 13;
 
@@ -50,8 +50,31 @@ const mainMarker = L.marker(
 
 const getMap = () => {
   map.on('load', () => {
-    toActiveForm() // При успешной загрузке карты форма "Ваше объявление" переключается в активное состояние
-    getCurrentPosition(TOKYO)
+    toActiveForm(); // При успешной загрузке карты форма "Ваше объявление" переключается в активное состояние
+    getCurrentPosition(TOKYO);
+
+    fetch('https://23.javascript.pages.academy/keksobooking/data')  //  добавит на карту метки объявлений, «обычные».
+      .then((response) => response.json())
+      .then((json) => {
+        json.forEach((element) => {
+          console.log(element)
+          const lat = element.location.lat;
+          const lng = element.location.lng;
+
+          const marker = L.marker(
+            {
+              lat,
+              lng,
+            },
+            {
+              icon: MarkerIcon,
+            },
+          );
+
+          marker.addTo(map).bindPopup(renderCard(element.author, element.offer));
+        });
+      });
+
   });
   map.setView(TOKYO,  ZOOM_MAP);
 
@@ -61,24 +84,6 @@ const getMap = () => {
 
   mainMarker.addTo(map);
 
-  //  добавит на карту метки объявлений, «обычные».
-
-  cardsArr.forEach((element) => {
-    const lat = element.location.x;
-    const lng = element.location.y;
-
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon: MarkerIcon,
-      },
-    );
-
-    marker.addTo(map).bindPopup(renderCard(element.author, element.offer));
-  });
 };
 
 // выбор адреса путём перемещения главной метки.

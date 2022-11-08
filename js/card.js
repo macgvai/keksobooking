@@ -33,7 +33,7 @@ const renderCard = function (author, offer) {
   newCard.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}` || '';
   newCard.querySelector('.popup__features').textContent = offer.features || '';
   newCard.querySelector('.popup__description').textContent = offer.description || '';
-  newCard.querySelector('.popup__avatar').src = author || 'img/avatars/default.png';
+  newCard.querySelector('.popup__avatar').src = author.avatar || 'img/avatars/default.png';
 
   const cardPhotos = newCard.querySelector('.popup__photos');
   cardPhotos.innerHTML = '';

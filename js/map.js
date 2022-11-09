@@ -1,14 +1,12 @@
 import { toActiveForm, getCurrentPosition } from './form.js';
-import { renderCard, cardsArr } from './card.js';
+import { renderCard } from './card.js';
+import { getData, sendData } from './api.js';
 
 const TOKYO = {
   lat: 35.67487,
   lng:   139.75039,
 };
 const ZOOM_MAP = 13;
-
-
-
 
 const map = L.map('map-canvas');
 
@@ -34,48 +32,29 @@ const mainMarker = L.marker(
   },
 );
 
-// // создаем балун
+// добавление меток на карту
 
-// const createCustomPopup = (point) => {
-//   const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
-//   const popupElement = balloonTemplate.cloneNode(true);
+const renderCardList = function (offersArr) {
+  offersArr.forEach((element) => {
 
-//   popupElement.querySelector('.balloon__title').textContent = point.title;
-//   popupElement.querySelector('.balloon__lat-lng').textContent = `Координаты: ${point.lat}, ${point.lng}`;
+    const marker = L.marker(
+      element.location,
+      {
+        icon: MarkerIcon,
+      },
+    );
 
-//   return popupElement;
-// };
-
-
+    marker.addTo(map).bindPopup(renderCard(element));
+  });
+};
 
 const getMap = () => {
   map.on('load', () => {
     toActiveForm(); // При успешной загрузке карты форма "Ваше объявление" переключается в активное состояние
     getCurrentPosition(TOKYO);
-
-    fetch('https://23.javascript.pages.academy/keksobooking/data')  //  добавит на карту метки объявлений, «обычные».
-      .then((response) => response.json())
-      .then((json) => {
-        json.forEach((element) => {
-          console.log(element)
-          const lat = element.location.lat;
-          const lng = element.location.lng;
-
-          const marker = L.marker(
-            {
-              lat,
-              lng,
-            },
-            {
-              icon: MarkerIcon,
-            },
-          );
-
-          marker.addTo(map).bindPopup(renderCard(element.author, element.offer));
-        });
-      });
-
+    getData(renderCardList); // добавление меток на карту
   });
+
   map.setView(TOKYO,  ZOOM_MAP);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' })

@@ -1,3 +1,8 @@
+import { sendData } from './api.js';
+import { showAlert } from './util.js';
+
+
+
 const priceForm = document.querySelector('#price');
 const typeForm = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
@@ -120,7 +125,20 @@ const formValidation = function () {
 };
 
 
+const setUserFormSubmit = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
+  });
+};
 
 
-export { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, toActiveForm, getCurrentPosition, formValidation };
+
+
+export { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, toActiveForm, getCurrentPosition, formValidation, setUserFormSubmit };
 

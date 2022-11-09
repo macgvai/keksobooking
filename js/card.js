@@ -1,5 +1,6 @@
 import { getOffer } from './data.js';
 
+
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
 const checkCard = document.querySelector('.map__canvas');
 const cardsArr = getOffer();
@@ -22,7 +23,7 @@ const createPhotos = (photos) => {
   return photosFragment;
 };
 
-const renderCard = function (author, offer) {
+const renderCard = function ({author, offer}) {
   const newCard = templateCard.cloneNode(true);
 
   newCard.querySelector('.popup__title').textContent = offer.title || '';
@@ -46,6 +47,8 @@ const renderCard = function (author, offer) {
 
   return newCard;
 };
+
+
 
 export { renderCard, cardsArr, checkCard };
 

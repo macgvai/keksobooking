@@ -41,7 +41,7 @@ const getRandomArr = (arr) => {
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
+  alertContainer.style.position = 'fixed';
   alertContainer.style.left = 0;
   alertContainer.style.top = 0;
   alertContainer.style.right = 0;

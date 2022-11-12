@@ -1,7 +1,8 @@
 import { toActiveForm, getCurrentPosition } from './form.js';
 import { renderCard } from './card.js';
-import { getData, sendData } from './api.js';
+import { getData } from './api.js';
 
+const L = window.L;
 const TOKYO = {
   lat: 35.67487,
   lng:   139.75039,

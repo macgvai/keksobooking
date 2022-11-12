@@ -1,34 +1,46 @@
-const getData = (onSuccess) => {
-  fetch('https://23.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((ofers) => {
-      onSuccess(ofers);
+const DATA = 'https://23.javascript.pages.academy/keksobooking/data';
+const SERVER = 'https://23.javascript.pages.academy/keksobooking';
+
+
+const getData = (onSuccess, onFail) => {
+  fetch(DATA)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`${response.status} ${response.statusText}`);
+    })
+    .then((response) => {
+      onSuccess(response);
+    })
+    .catch((err) => {
+      onFail(`Ошибка загрузки данных ${err}`);
     });
 };
 
+
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://23.javascript.pages.academy/keksobooking',
-    {
+    SERVER, {
       method: 'POST',
       body,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
     },
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
+        onSuccess('Ваше объявление успешно размещено!');
+      } else if (response.status >= 500 && response.status <= 505) {
+        onFail('Не удалось получить данные с сервера. Попробуйте ещё раз!');
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        onFail('Не удалось отправить форму. Попробуйте ещё раз!');
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      onFail('Не удалось отправить форму. Попробуйте ещё раз!');
     });
 };
 
 export { getData, sendData };
+
 
 

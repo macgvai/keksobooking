@@ -1,5 +1,5 @@
-import { sendData } from './api.js';
-import { showAlert } from './util.js';
+import {  sendData  } from './api.js';
+import {   showSuccessModal, showErrorModal } from './popup.js'
 
 
 
@@ -125,15 +125,14 @@ const formValidation = function () {
 };
 
 
-const setUserFormSubmit = (onSuccess) => {
+
+
+
+const setUserFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    sendData(
-      () => onSuccess(),
-      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
-      new FormData(evt.target),
-    );
+    sendData(showSuccessModal, showErrorModal, new FormData(evt.target));
   });
 };
 

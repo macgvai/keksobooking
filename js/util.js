@@ -59,4 +59,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export { getRandomInteger, getRandomFloatingPointNumber, getRandomArr, showAlert };
+// debounce
+
+const debounce = function ( callback, delay ) {
+  let timeout;
+  return function() {
+    clearTimeout( timeout );
+    timeout = setTimeout( callback, delay );
+  };
+};
+
+export { getRandomInteger, getRandomFloatingPointNumber, getRandomArr, showAlert, debounce };

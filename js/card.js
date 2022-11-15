@@ -1,9 +1,12 @@
-import { getOffer } from './data.js';
-
+const TYPES_OF_HOUSING = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 
 const templateCard = document.querySelector('#card').content.querySelector('.popup');
-const checkCard = document.querySelector('.map__canvas');
-const cardsArr = getOffer();
 
 
 // создаём фото из масива
@@ -29,7 +32,7 @@ const renderCard = function ({author, offer}) {
   newCard.querySelector('.popup__title').textContent = offer.title || '';
   newCard.querySelector('.popup__text--address').textContent = offer.address || '';
   newCard.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь` || '';
-  newCard.querySelector('.popup__type').textContent = offer.type || '';
+  newCard.querySelector('.popup__type').textContent = TYPES_OF_HOUSING[offer.type] || '';
   newCard.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей` || '';
   newCard.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}` || '';
   newCard.querySelector('.popup__features').textContent = offer.features || '';
@@ -50,7 +53,7 @@ const renderCard = function ({author, offer}) {
 
 
 
-export { renderCard, cardsArr, checkCard };
+export { renderCard, TYPES_OF_HOUSING };
 
 
 

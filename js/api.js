@@ -1,3 +1,5 @@
+import {getFilter} from './filter.js';
+
 const DATA = 'https://23.javascript.pages.academy/keksobooking/data';
 const SERVER = 'https://23.javascript.pages.academy/keksobooking';
 
@@ -10,13 +12,17 @@ const getData = (onSuccess, onFail) => {
       }
       throw new Error(`${response.status} ${response.statusText}`);
     })
+    // .then((response) => {
+    //   getFilter(response);
+    // })
     .then((response) => {
-      onSuccess(response);
+      onSuccess(getFilter(response).slice(0, 10));
     })
     .catch((err) => {
       onFail(`Ошибка загрузки данных ${err}`);
     });
 };
+
 
 
 const sendData = (onSuccess, onFail, body) => {

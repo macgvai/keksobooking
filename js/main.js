@@ -1,6 +1,7 @@
 import {  toInactiveForm, formValidation, setUserFormSubmit } from './form.js';
 import  { getMap, currentPosMarker }  from './map.js';
 import {showPreviewUploadPhoto} from './avatar.js';
+import './filter.js';
 
 const selectRooms = document.querySelector('#room_number');
 
@@ -25,3 +26,4 @@ showPreviewUploadPhoto();
 
 setUserFormSubmit();
 
+// const typeFilter = mapFilters.querySelector('#housing-type');

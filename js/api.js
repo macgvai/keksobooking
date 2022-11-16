@@ -12,11 +12,10 @@ const getData = (onSuccess, onFail) => {
       }
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    // .then((response) => {
-    //   getFilter(response);
-    // })
     .then((response) => {
-      onSuccess(getFilter(response).slice(0, 10));
+      onSuccess(response);
+      console.log(onSuccess(response))
+      // onSuccess(getFilter(response).slice(0, 10));
     })
     .catch((err) => {
       onFail(`Ошибка загрузки данных ${err}`);

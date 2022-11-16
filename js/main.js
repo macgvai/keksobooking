@@ -1,13 +1,25 @@
+import { getData } from './api.js';
 import {  toInactiveForm, formValidation, setUserFormSubmit } from './form.js';
-import  { getMap, currentPosMarker }  from './map.js';
+import  { getMap, currentPosMarker, renderCardList }  from './map.js';
 import {showPreviewUploadPhoto} from './avatar.js';
-import './filter.js';
+import { changeFilters, renderTypeFilter,getFilter } from './filter.js';
 
 const selectRooms = document.querySelector('#room_number');
 
 
 toInactiveForm();
 getMap();
+
+getData((data)=> {
+  renderCardList(data); // добавление меток на карту
+  // renderTypeFilter();
+  changeFilters(()=> {
+    const filteredData = getFilter(data);
+    renderCardList(filteredData.slice(0, 10));
+  })
+
+
+});
 currentPosMarker();
 formValidation(selectRooms);
 showPreviewUploadPhoto();

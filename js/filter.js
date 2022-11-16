@@ -1,4 +1,6 @@
-// import  {TYPES_OF_HOUSING} from './card.js';
+import { getData } from "./api.js";
+import { clearMarker } from "./map.js";
+
 
 // console.log(filterOptions);
 
@@ -17,7 +19,16 @@ const filterWasher = mapFilters.querySelector('#filter-washer');
 const filterElevator = mapFilters.querySelector('#filter-elevator');
 const filterConditioner = mapFilters.querySelector('#filter-conditioner');
 
-typeFilter.addEventListener('change', () => {console.log(typeFilter.value);});
+
+
+const renderTypeFilter = () => {
+  typeFilter.addEventListener('change', () => {
+    getData(getFilter);
+  });
+};
+
+// renderTypeFilter();
+
 priceFilter.addEventListener('change', () => {console.log(priceFilter.value);});
 roomsFilter.addEventListener('change', ()=>{console.log(roomsFilter.value);});
 guestsFilter.addEventListener('change', ()=>{console.log(guestsFilter.value);});
@@ -59,13 +70,24 @@ currTarget(guestsFilter, 'guests');
 // console.log(filterValues);
 
 const getFilter = function (servData) {
-  const filterData = filterValues;
-  console.log(filterData.type);
   const getSortData = servData.filter((element) => {
-    return element.offer.type === filterData.type;
+    const filterData = filterValues;
+    console.log(filterData.type);
+    return element.offer.type === filterData.type || filterData.type === 'any';
   });
+
   console.log(getSortData);
   return getSortData;
 };
 
-export { getFilter };
+
+// Перерисовка карты
+
+const changeFilters = (cb) => {
+  mapFilters.addEventListener('change', () => {
+    clearMarker(),
+    cb();
+  });
+};
+
+export { getFilter, renderTypeFilter, changeFilters };

@@ -1,6 +1,8 @@
 import { toActiveForm, getCurrentPosition } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './api.js';
+import { getFilter } from './filter.js';
+import { renderTypeFilter } from './filter.js';
 
 const L = window.L;
 const TOKYO = {
@@ -34,18 +36,26 @@ const mainMarker = L.marker(
 );
 
 // добавление меток на карту
+// Создание слоя с группой меток
+const markerGroup = L.layerGroup().addTo(map);
+// Очищение слоя с метками объявлений
+const clearMarker = () => markerGroup.clearLayers();
+
+const createMarker = (data) => {
+  const marker = L.marker(
+    data.location,
+    {
+      icon: MarkerIcon,
+    },
+  );
+  marker.addTo(markerGroup).bindPopup(renderCard(data));
+};
+
+
 
 const renderCardList = function (offersArr) {
   offersArr.forEach((element) => {
-
-    const marker = L.marker(
-      element.location,
-      {
-        icon: MarkerIcon,
-      },
-    );
-
-    marker.addTo(map).bindPopup(renderCard(element));
+    createMarker(element);
   });
 };
 
@@ -53,7 +63,8 @@ const getMap = () => {
   map.on('load', () => {
     toActiveForm(); // При успешной загрузке карты форма "Ваше объявление" переключается в активное состояние
     getCurrentPosition(TOKYO);
-    getData(renderCardList); // добавление меток на карту
+    // getData(renderCardList); // добавление меток на карту
+    // renderTypeFilter(() => renderCardList);
   });
 
   map.setView(TOKYO,  ZOOM_MAP);
@@ -63,7 +74,6 @@ const getMap = () => {
 
 
   mainMarker.addTo(map);
-
 };
 
 // выбор адреса путём перемещения главной метки.
@@ -78,4 +88,4 @@ const currentPosMarker = function () {
 
 
 
-export { getMap, currentPosMarker };
+export { getMap, currentPosMarker, renderCardList,clearMarker };

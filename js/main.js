@@ -11,7 +11,7 @@ toInactiveForm();
 getMap();
 
 getData((data)=> {
-  renderCardList(data); // добавление меток на карту
+  renderCardList(data.slice(0, 10)); // добавление меток на карту
   // renderTypeFilter();
   changeFilters(()=> {
     const filteredData = getFilter(data);

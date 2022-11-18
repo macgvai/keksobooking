@@ -2,7 +2,6 @@ import { toActiveForm, getCurrentPosition } from './form.js';
 import { renderCard } from './card.js';
 import { getData } from './api.js';
 import { getFilter } from './filter.js';
-import { renderTypeFilter } from './filter.js';
 
 const L = window.L;
 const TOKYO = {

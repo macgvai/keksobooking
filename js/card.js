@@ -26,6 +26,17 @@ const createPhotos = (photos) => {
   return photosFragment;
 };
 
+// создание Features
+const createFeatures = (features) => {
+  const featuresFragment = document.createDocumentFragment();
+  features.forEach((element) => {
+    const feature = document.createElement('li');
+    feature.classList.add('popup__feature', `popup__feature--${element}`);
+    featuresFragment.appendChild(feature);
+  });
+  return featuresFragment;
+};
+
 const renderCard = function ({author, offer}) {
   const newCard = templateCard.cloneNode(true);
 
@@ -38,6 +49,16 @@ const renderCard = function ({author, offer}) {
   newCard.querySelector('.popup__features').textContent = offer.features || '';
   newCard.querySelector('.popup__description').textContent = offer.description || '';
   newCard.querySelector('.popup__avatar').src = author.avatar || 'img/avatars/default.png';
+
+  const cardFeatures = newCard.querySelector('.popup__features');
+  cardFeatures.innerHTML = '';
+  if (offer.features) {
+    const newFeatureElements = createFeatures(offer.features);
+    cardFeatures.appendChild(newFeatureElements);
+  } else {
+    cardFeatures.remove();
+  }
+
 
   const cardPhotos = newCard.querySelector('.popup__photos');
   cardPhotos.innerHTML = '';

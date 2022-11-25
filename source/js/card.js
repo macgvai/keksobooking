@@ -26,7 +26,7 @@ const createPhotos = (photos) => {
   return photosFragment;
 };
 
-// создание Features
+// создаём Features
 const createFeatures = (features) => {
   const featuresFragment = document.createDocumentFragment();
   features.forEach((element) => {

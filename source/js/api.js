@@ -12,7 +12,6 @@ const getData = (onSuccess, onFail) => {
     })
     .then((response) => {
       onSuccess(response);
-      console.log(onSuccess(response))
     })
     .catch((err) => {
       onFail(`Ошибка загрузки данных ${err}`);

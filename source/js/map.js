@@ -1,7 +1,5 @@
 import { toActiveForm, getCurrentPosition } from './form.js';
 import { renderCard } from './card.js';
-import { getData } from './api.js';
-import { getFilter } from './filter.js';
 
 const L = window.L;
 const TOKYO = {
@@ -62,8 +60,6 @@ const getMap = () => {
   map.on('load', () => {
     toActiveForm(); // При успешной загрузке карты форма "Ваше объявление" переключается в активное состояние
     getCurrentPosition(TOKYO);
-    // getData(renderCardList); // добавление меток на карту
-    // renderTypeFilter(() => renderCardList);
   });
 
   map.setView(TOKYO,  ZOOM_MAP);

@@ -1,8 +1,13 @@
 import {  sendData  } from './api.js';
 import {   showSuccessModal, showErrorModal } from './popup.js'
 
-
-
+const MIN_PRICE_OF_TYPE = {
+  bungalow: '0',
+  flat: '1000',
+  hotel: '3000',
+  house: '5000',
+  palace: '10000',
+};
 const priceForm = document.querySelector('#price');
 const typeForm = document.querySelector('#type');
 const timeIn = document.querySelector('#timein');
@@ -11,24 +16,12 @@ const addressForm = document.querySelector('#address');
 const selectRooms = document.querySelector('#room_number');
 const capacity = document.querySelector('#capacity');
 
-
-
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersChildren = mapFilters.children;
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('fieldset');
 
-
-const MIN_PRICE_OF_TYPE = {
-  bungalow: '0',
-  flat: '1000',
-  hotel: '3000',
-  house: '5000',
-  palace: '10000',
-};
-
 // Неактивное состояние. При открытии страница находится в неактивном состоянии
-
 
 const toInactiveForm = function () {
   mapFilters.classList.add('ad-form--disabled');
@@ -52,8 +45,6 @@ const toActiveForm = function () {
     element.removeAttribute('disabled');
   });
 };
-
-
 
 //  выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»;
 
@@ -80,8 +71,6 @@ const getCurrentPosition = function (coordinates) {
   addressForm.setAttribute('readonly', 'readonly');
   addressForm.value = `${(coordinates.lat).toFixed(5)},  ${(coordinates.lng).toFixed(5)}`;
 };
-
-
 
 // валидация формы
 
@@ -124,10 +113,6 @@ const formValidation = function () {
 
 };
 
-
-
-
-
 const setUserFormSubmit = () => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -135,9 +120,6 @@ const setUserFormSubmit = () => {
     sendData(showSuccessModal, showErrorModal, new FormData(evt.target));
   });
 };
-
-
-
 
 export { onPriceOfType, onTimeIn,  onTimeOut, toInactiveForm, toActiveForm, getCurrentPosition, formValidation, setUserFormSubmit };
 

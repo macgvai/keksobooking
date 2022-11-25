@@ -1,4 +1,4 @@
-import { clearMarker } from "./map.js";
+import { clearMarker } from './map.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const typeFilter = mapFilters.querySelector('#housing-type');
